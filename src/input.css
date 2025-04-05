@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@custom-variant dark {
+	@media (prefers-color-scheme: dark) {
+		&:not(.light *) {
+			@slot;
+		}
+	}
+	&:is(.dark *) {
+		@slot;
+	}
+}
+
+@theme {
+	--color-body-50: hsl(var(--hue-color) 16% abs(100% - 105% * var(--isDarkMode)));
+	--color-body-100: hsl(var(--hue-color) 16% abs(95% - 105% * var(--isDarkMode)));
+	--color-body-200: hsl(var(--hue-color) 16% abs(85% - 105% * var(--isDarkMode)));
+	--color-body-300: hsl(var(--hue-color) 16% abs(75% - 105% * var(--isDarkMode)));
+	--color-body-400: hsl(var(--hue-color) 16% abs(65% - 105% * var(--isDarkMode)));
+	--color-body-500: hsl(var(--hue-color) 16% abs(55% - 105% * var(--isDarkMode)));
+
+	--color-primary-50: hsl(var(--hue-color) 81.92498870311792% 88.935%);
+	--color-primary-100: hsl(var(--hue-color) 76.4150943396226% 83.03999999999999%);
+	--color-primary-200: hsl(var(--hue-color) 73.55080449636321% 77.315%);
+	--color-primary-300: hsl(var(--hue-color) 71.671388101983% 71.76%);
+	--color-primary-400: hsl(var(--hue-color) 70.26022304832715% 66.375%);
+	--color-primary-500: hsl(var(--hue-color) 69.10401647785788% 61.160000000000004%);
+	--color-primary-600: hsl(var(--hue-color) 50.9433962264151% 49.68749999999999%);
+	--color-primary-700: hsl(var(--hue-color) 58.730158730158735% 39.06%);
+	--color-primary-800: hsl(var(--hue-color) 67.3640167364017% 29.277499999999996%);
+	--color-primary-900: hsl(var(--hue-color) 76.99115044247789% 20.339999999999996%);
+	--color-primary-950: hsl(var(--hue-color) 87.79342723004696% 12.2475%);
+
+	--color-input: hsl(var(--hue-color) 70% 96%);
+
+	--color-text-300: hsl(var(--hue-color) 12% abs(36.075% - 100% * var(--isDarkMode)));
+	--color-text-400: hsl(var(--hue-color) 12% abs(27.888% - 100% * var(--isDarkMode)));
+	--color-text-500: hsl(var(--hue-color) 12% abs(20.686999999999998% - 100% * var(--isDarkMode)));
+	--color-text-600: hsl(var(--hue-color) 12% abs(14.472000000000001% - 100% * var(--isDarkMode)));
+	--color-text-700: hsl(var(--hue-color) 12% abs(9.243% - 100% * var(--isDarkMode)));
+}
+
+@layer base {
+	:root {
+		--isDarkMode: 0;
+		--hue-color: 240deg;
+		color-scheme: light;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		&:not(.light) {
+			--isDarkMode: 1;
+			color-scheme: dark;
+		}
+	}
+	&:is(.dark) {
+		--isDarkMode: 1;
+		color-scheme: dark;
+	}
+
+	*,
+	::before,
+	::after {
+		border-color: var(--color-body-200);
+
+		transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-duration: 150ms;
+	}
+
+	html {
+		font-size: calc(14 / 16 * 100%);
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: hsl(var(--text-color-500));
+		font-weight: 600;
+		text-wrap: balance;
+	}
+
+	h1 {
+		color: hsl(var(--text-color-700));
+		font-size: 3rem;
+		line-height: 1.33em;
+	}
+
+	h2 {
+		font-size: 2.521rem;
+		line-height: 1.33em;
+	}
+
+	h3 {
+		font-size: 2.089rem;
+		line-height: 1.33em;
+	}
+
+	h4 {
+		font-size: 1.707rem;
+		line-height: 1.33em;
+	}
+
+	h5 {
+		font-size: 1.385rem;
+		line-height: 1.33em;
+	}
+
+	h6 {
+		font-size: 1.136rem;
+		line-height: 1.33em;
+	}
+
+	p {
+		font-size: 1rem;
+		line-height: 1.33em;
+		max-width: 65ch;
+		text-wrap: pretty;
+	}
+
+	.padding {
+		padding-block: calc(0.75em * max(var(--size, 1), 0.33));
+		padding-inline: calc(1.5em * max(var(--size, 1), 0.33));
+	}
+
+	.switch {
+		cursor: pointer;
+
+		& span,
+		& span::before {
+			border-radius: 9999px;
+			transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+			transition-duration: calc(150ms * sqrt(var(--aspect-ratio) - 1));
+		}
+
+		& span {
+			--height: 1.25em;
+			--aspect-ratio: 2;
+			position: relative;
+			display: inline-block;
+			background: hsl(0deg 0% 80%);
+			height: var(--height);
+			aspect-ratio: var(--aspect-ratio) / 1;
+			vertical-align: text-bottom;
+			transition-property: background;
+		}
+
+		& span::before {
+			content: '';
+			position: absolute;
+			background: white;
+			height: var(--height);
+			aspect-ratio: 1;
+			top: 0;
+			left: 0;
+			scale: calc(2 / 3);
+			transition-property: left;
+		}
+
+		/* checkbox is hidden but remains keyboard-targetable */
+		& input {
+			width: 0;
+			height: 0;
+			opacity: 0;
+		}
+
+		/*==================================================
+			If disabled
+		==================================================*/
+		&:has(input:disabled) {
+			cursor: not-allowed;
+		}
+
+		/*==================================================
+			If hovering
+		==================================================*/
+		&:not(:has(input:disabled)) span:hover {
+			opacity: 0.87;
+		}
+
+		/*==================================================
+			If focus
+		==================================================*/
+		&:not(:has(input:disabled)):has(input:focus-visible) span {
+			outline: 2px solid hsl(208deg 100% 50%);
+			outline-offset: 2px;
+		}
+
+		/*==================================================
+			If checked
+		==================================================*/
+		&:has(input:checked) span {
+			background: hsl(208deg 100% 62.5%);
+		}
+
+		&:has(input:checked) span::before {
+			left: calc(var(--height) * var(--aspect-ratio) - var(--height));
+		}
+	}
+}

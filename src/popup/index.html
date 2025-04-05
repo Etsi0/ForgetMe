@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/src/output.css">
+	<title>History Filter</title>
+</head>
+<body class="bg-body-100 p-4">
+	<h1>History Filter</h1>
+	<h2>Filter Rules</h2>
+	<div id="container"></div>
+	<button name="add" class="bg-body-200 px-[1.5em] py-[0.75em] rounded-lg cursor-pointer hover:bg-primary-500 hover:text-input">Add New Rule</button>
+	<button name="save" class="bg-body-200 px-[1.5em] py-[0.75em] rounded-lg cursor-pointer hover:bg-green-500">Save Settings</button>
+
+	<template>
+		<div class="grid gap-2 bg-body-50 p-4 not-first:border-t not-first:border-t-body-100 first:rounded-t-lg last:rounded-b-lg last:mb-2 dark:bg-body-200 dark:not-first:border-t-body-300">
+			<div class="flex justify-between items-center">
+				<h3>Rule</h3>
+				<button name="del" class="bg-body-200 padding rounded-lg cursor-pointer hover:bg-red-500 hover:text-red-100 dark:bg-body-300 dark:hover:bg-red-500" style="--size:.33">✕</button>
+			</div>
+			<label>
+				Domain:
+				<input type="text" name="domain" placeholder="example.com">
+			</label>
+			<label class="switch">
+				Enabled:
+				<span></span>
+				<input type="checkbox" name="enabled" checked>
+			</label>
+		</div>
+	</template>
+
+	<script src="./app.js"></script>
+</body>
+</html>
